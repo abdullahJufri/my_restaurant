@@ -1,0 +1,47 @@
+[
+  {
+    "name": "The Valley Bistro Cafe",
+    "address": "Dago Atas, Bandung",
+    "rating": "4.6",
+    "description": "Sahabat traveler’s, Bistro Cafe The Valley Bandung ini adalah salah satu tempat makan yang paling enak dan cozy di Bandung utara dengan suasana full romantic. Salah satu Restoran di Dago Bandung ini menawarkan pengalaman wisata kuliner sambil menikmati pemandangan indah kota Bandung dari atas puncak tertinggi.",
+    "imageAsset": "https://infowisatabandung.com/wp-content/uploads/2019/11/The-Valley-Bandung-2.jpg",
+    "imageMenu": [
+      "https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg",
+      "https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg",
+      "https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg"
+    ],
+    "priceMenu": [
+      "RP. 80.000",
+      "RP. 80.000",
+      "RP. 80.000"
+    ],
+    "Menu": [
+      "Ayam",
+      "Bebek",
+      "Steak"
+    ]
+  },
+
+  {
+    "name": "The Valley Bistro Cafe",
+    "address": "Dago Atas, Bandung",
+    "rating": "4.6",
+    "description": "Sahabat traveler’s, Bistro Cafe The Valley Bandung ini adalah salah satu tempat makan yang paling enak dan cozy di Bandung utara dengan suasana full romantic. Salah satu Restoran di Dago Bandung ini menawarkan pengalaman wisata kuliner sambil menikmati pemandangan indah kota Bandung dari atas puncak tertinggi.",
+    "imageAsset": "https://infowisatabandung.com/wp-content/uploads/2019/11/The-Valley-Bandung-2.jpg",
+    "imageMenu": [
+      "https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg",
+      "https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg",
+      "https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg"
+    ],
+    "priceMenu": [
+      "RP. 80.000",
+      "RP. 80.000",
+      "RP. 80.000"
+    ],
+    "Menu": [
+      "Ayam",
+      "Bebek",
+      "Steak"
+    ]
+  }
+]
