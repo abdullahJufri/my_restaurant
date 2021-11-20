@@ -6,7 +6,7 @@ class RestaurantDetailPage extends StatelessWidget {
   static const routeName = '/article_detail';
 
   final Restaurant restaurant;
-  const RestaurantDetailPage({required this.restaurant});
+  const RestaurantDetailPage({Key? key, required this.restaurant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,89 +50,45 @@ class RestaurantDetailPage extends StatelessWidget {
                 children: [
                   Text(
                     restaurant.name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
+                    style: Theme.of(context).textTheme.headline5,
+
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(Icons.location_on),
-                      Text(restaurant.city),
+                      Text(restaurant.city,
+                        style: Theme.of(context).textTheme.subtitle1,),
                     ]
                   ),
                   Divider(color: Colors.grey),
-                  Text(restaurant.description),
+                  Text(restaurant.description,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                   Divider(color: Colors.grey),
-                  Text('FOOD MENU'),
+                  Text('FOOD MENU',
+                    style: Theme.of(context).textTheme.subtitle2,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: restaurant.menus.foods.map((MenusFood) => Container(
+                    children: restaurant.menus.foods.map((menusFood) => Container(
                       child: Text(
-                        MenusFood.name
+                        menusFood.name,
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     )).toList()
                   ),
                   Divider(color: Colors.grey),
-                  Text("DRINK MENU:"),
+                  Text("DRINK MENU:",
+                    style: Theme.of(context).textTheme.subtitle2,),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: restaurant.menus.drinks.map((MenusFood) => Container(
                         child: Text(
-                            MenusFood.name
+                            MenusFood.name,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       )).toList()
                   ),
-
-                  // Container(
-                  //   height: 250,
-                  //   child: ListView(
-                  //     scrollDirection: Axis.horizontal,
-                  //     children: restaurant.menus.foods.map((url) {
-                  //       return Padding(
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         child: Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             Container(
-                  //               height: 130,
-                  //               child: ClipRRect(
-                  //                 borderRadius: BorderRadius.circular(10),
-                  //                 child: Image.network(url),
-                  //               ),
-                  //             ),
-
-                            // Text(restaurant.menu.map((Restaurant) => null))
-                  //           ],
-                  //
-                  //         ),
-                  //       );
-                  //     }).toList(),
-                  //   ),
-                  // ),
-                  // ListView(
-                  //   scrollDirection: Axis.horizontal,
-                  //   children: restaurant.menu.map((String) {
-                  //     return Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Column(
-                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         children: [
-                  //           Container(
-                  //             height: 130,
-                  //             child: Text(String),
-                  //           ),
-                  //
-                  //           // Text(restaurant.menu.map((Restaurant) => null))
-                  //         ],
-                  //
-                  //       ),
-                  //     );
-                  //   }).toList(),
-                  // )
-
                 ],
               ),
             ),
