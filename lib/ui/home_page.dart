@@ -108,11 +108,8 @@ class RestoItem extends StatelessWidget {
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: Hero(
-                    tag: restaurant.pictureId,
-                    child: Image.network(
-                        ApiService.smallImage + restaurant.pictureId
-                    ),
+                  child: Image.network(
+                      ApiService.smallImage + restaurant.pictureId
                   )),
               Expanded(
                 flex: 2,
