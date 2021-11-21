@@ -4,6 +4,7 @@ import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
 import 'package:my_restaurant/data/provider/restaurant_provider.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
+import 'package:my_restaurant/ui/search.dart';
 import 'package:provider/provider.dart';
 // import 'package:my_restaurant/restaurant.dart';
 
@@ -20,18 +21,23 @@ class HomePage extends StatelessWidget {
           elevation: 0.0,
           centerTitle: true,
           title: Text(
-            'Mr Restaurant',
+            'My Restaurant',
             style: TextStyle(
                 fontFamily: 'Varela', fontSize: 20.0, color: Color(0xFF545D68)),
           ),
-          actions: <Widget>[
+          actions: [
+            // IconButton(
+            //   icon: Icon(
+            //     Icons.notifications_none,
+            //     color: Color(0xFF545D68),
+            //   ),
+            //   onPressed: () {},
+            // ),
             IconButton(
-              icon: Icon(
-                Icons.notifications_none,
-                color: Color(0xFF545D68),
-              ),
-              onPressed: () {},
-            ),
+                icon: Icon(Icons.search,
+                  color: Color(0xFF545D68),),
+                onPressed: () =>
+                    Navigator.pushNamed(context, SearchPage.routeName))
           ],
         ),
         body: Consumer<RestoProvider>(builder: (context, state, _) {
@@ -108,8 +114,11 @@ class RestoItem extends StatelessWidget {
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: Image.network(
-                      ApiService.smallImage + restaurant.pictureId
+                  child: Hero(
+                    tag: restaurant.pictureId,
+                    child: Image.network(
+                        ApiService.smallImage + restaurant.pictureId
+                    ),
                   )),
               Expanded(
                 flex: 2,
@@ -178,11 +187,8 @@ Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
           children: <Widget>[
             Expanded(
                 flex: 1,
-                child: Hero(
-                  tag: restaurant.pictureId,
-                  child: Image.network(
-                      ApiService.smallImage + restaurant.pictureId
-                  ),
+                child: Image.network(
+                    ApiService.smallImage + restaurant.pictureId
                 )),
             Expanded(
               flex: 2,

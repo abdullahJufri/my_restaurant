@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
 import 'package:my_restaurant/restaurant.dart';
 import 'package:my_restaurant/ui/home_page.dart';
+import 'package:my_restaurant/ui/search.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage(),
+        SearchPage.routeName: (context) => SearchPage(),
         RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
               restaurant:
                 ModalRoute.of(context).settings.arguments,
