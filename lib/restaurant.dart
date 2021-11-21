@@ -11,7 +11,7 @@ String restaurantsToJson(Restaurants data) => json.encode(data.toJson());
 
 class Restaurants {
   Restaurants({
-    required this.restaurants,
+     this.restaurants,
   });
 
   List<Restaurant> restaurants;
@@ -28,13 +28,13 @@ class Restaurants {
 
 class Restaurant {
   Restaurant({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.pictureId,
-    required this.city,
-    required this.rating,
-    required this.menus,
+     this.id,
+     this.name,
+     this.description,
+     this.pictureId,
+     this.city,
+     this.rating,
+     this.menus,
   });
 
   String id;
@@ -68,8 +68,8 @@ class Restaurant {
 
 class Menus {
   Menus({
-    required this.foods,
-    required this.drinks,
+     this.foods,
+     this.drinks,
   });
 
   List<MenusFood> foods;
@@ -90,7 +90,7 @@ class Menus {
 
 class MenusFood {
   MenusFood({
-    required this.name,
+     this.name,
   });
 
   String name;
@@ -104,7 +104,7 @@ class MenusFood {
       };
 }
 
-List<Restaurant> parseRestaurants(String? json) {
+List<Restaurant> parseRestaurants(String json) {
   if (json == null) {
     return [];
   }

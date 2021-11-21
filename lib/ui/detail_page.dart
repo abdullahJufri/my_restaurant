@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_restaurant/restaurant.dart';
 
-class RestaurantDetailPage extends StatelessWidget {
+class RestaurantDetailPage extends StatefulWidget {
   static const routeName = '/article_detail';
 
   final Restaurant restaurant;
-  const RestaurantDetailPage({Key? key, required this.restaurant}) : super(key: key);
+  const RestaurantDetailPage({Key key, this.restaurant}) : super(key: key);
 
+  @override
+  _RestaurantDetailPageState createState() => _RestaurantDetailPageState();
+}
+
+class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,14 +47,19 @@ class RestaurantDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(restaurant.pictureId),
+            Hero(
+              tag: widget.restaurant.pictureId,
+              child: Image.network(
+                  widget.restaurant.pictureId
+              ),
+            ),
             Padding(
               padding: EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    restaurant.name,
+                    widget.restaurant.name,
                     style: Theme.of(context).textTheme.headline5,
 
                   ),
@@ -57,12 +67,12 @@ class RestaurantDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(Icons.location_on),
-                      Text(restaurant.city,
+                      Text(widget.restaurant.city,
                         style: Theme.of(context).textTheme.subtitle1,),
                     ]
                   ),
                   Divider(color: Colors.grey),
-                  Text(restaurant.description,
+                  Text(widget.restaurant.description,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   Divider(color: Colors.grey),
@@ -70,7 +80,7 @@ class RestaurantDetailPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.subtitle2,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: restaurant.menus.foods.map((menusFood) => Container(
+                    children: widget.restaurant.menus.foods.map((menusFood) => Container(
                       child: Text(
                         menusFood.name,
                         style: Theme.of(context).textTheme.bodyText2,
@@ -82,7 +92,7 @@ class RestaurantDetailPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.subtitle2,),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: restaurant.menus.drinks.map((MenusFood) => Container(
+                      children: widget.restaurant.menus.drinks.map((MenusFood) => Container(
                         child: Text(
                             MenusFood.name,
                           style: Theme.of(context).textTheme.bodyText2,
