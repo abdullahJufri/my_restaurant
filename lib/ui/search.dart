@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   static const routeName = '/search_page';
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -17,7 +18,7 @@ class _SearchPageState extends State<SearchPage> {
     return ChangeNotifierProvider<RestoProvider>(
       create: (_) => RestoProvider(context),
       child:
-      Scaffold(body: Consumer<RestoProvider>(builder: (context, state, _) {
+          Scaffold(body: Consumer<RestoProvider>(builder: (context, state, _) {
         if (state.state == ResultState.Loading) {
           return Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.HasData) {

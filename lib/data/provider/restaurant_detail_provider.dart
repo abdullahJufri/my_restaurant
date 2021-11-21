@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_restaurant/data/api/api_connection_service.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
@@ -11,6 +12,7 @@ class RestoDetailProvider extends ChangeNotifier {
   RestoDetailProvider(this.context, {@required this.id}) {
     _fetchRestoDetailData();
   }
+
   final String id;
   final BuildContext context;
   final apiService = ApiService();
@@ -21,7 +23,9 @@ class RestoDetailProvider extends ChangeNotifier {
   DetailRestaurantResult _detailRestaurantResult;
 
   String get message => _message;
+
   ResultState get state => _state;
+
   DetailRestaurantResult get result => _detailRestaurantResult;
 
   Future<dynamic> _fetchRestoDetailData() async {

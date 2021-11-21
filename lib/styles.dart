@@ -10,11 +10,11 @@ final TextTheme myTextTheme = TextTheme(
   headline2: GoogleFonts.merriweather(
       fontSize: 57, fontWeight: FontWeight.w300, letterSpacing: -0.5),
   headline3:
-  GoogleFonts.merriweather(fontSize: 46, fontWeight: FontWeight.w400),
+      GoogleFonts.merriweather(fontSize: 46, fontWeight: FontWeight.w400),
   headline4: GoogleFonts.merriweather(
       fontSize: 32, fontWeight: FontWeight.w400, letterSpacing: 0.25),
   headline5:
-  GoogleFonts.merriweather(fontSize: 23, fontWeight: FontWeight.w400),
+      GoogleFonts.merriweather(fontSize: 23, fontWeight: FontWeight.w400),
   headline6: GoogleFonts.merriweather(
       fontSize: 19, fontWeight: FontWeight.w500, letterSpacing: 0.15),
   subtitle1: GoogleFonts.merriweather(

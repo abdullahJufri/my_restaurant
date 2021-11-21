@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/provider/restaurant_detail_provider.dart';
-import 'package:my_restaurant/restaurant.dart';
 import 'package:provider/provider.dart';
 
 class RestaurantDetailPage extends StatefulWidget {
   static const routeName = '/detail_restaurant';
 
-
   final String restaurant;
+
   const RestaurantDetailPage({Key key, this.restaurant}) : super(key: key);
 
   @override
@@ -17,7 +16,6 @@ class RestaurantDetailPage extends StatefulWidget {
 }
 
 class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +47,6 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
           ),
         ],
       ),
-
       body: ChangeNotifierProvider<RestoDetailProvider>(
         create: (_) => RestoDetailProvider(context, id: widget.restaurant),
         child: Consumer<RestoDetailProvider>(
@@ -63,7 +60,8 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   child: Column(
                     children: [
                       Image.network(
-                        ApiService.largeImage + state.result.restaurant.pictureId,
+                        ApiService.largeImage +
+                            state.result.restaurant.pictureId,
                       ),
                       Padding(
                         padding: EdgeInsets.all(10),
@@ -73,44 +71,56 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             Text(
                               state.result.restaurant.name,
                               style: Theme.of(context).textTheme.headline5,
-
                             ),
                             Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Icon(Icons.location_on),
-                                  Text(state.result.restaurant.city,
-                                    style: Theme.of(context).textTheme.subtitle1,),
-                                ]
-                            ),
+                                  Text(
+                                    state.result.restaurant.city,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ]),
                             Divider(color: Colors.grey),
-                            Text(state.result.restaurant.description,
+                            Text(
+                              state.result.restaurant.description,
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
                             Divider(color: Colors.grey),
-                            Text('FOOD MENU',
-                              style: Theme.of(context).textTheme.subtitle2,),
+                            Text(
+                              'FOOD MENU',
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: state.result.restaurant.menus.foods.map((menusFood) => Container(
-                                  child: Text(
-                                    menusFood.name,
-                                    style: Theme.of(context).textTheme.bodyText2,
-                                  ),
-                                )).toList()
-                            ),
+                                children: state.result.restaurant.menus.foods
+                                    .map((menusFood) => Container(
+                                          child: Text(
+                                            menusFood.name,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                          ),
+                                        ))
+                                    .toList()),
                             Divider(color: Colors.grey),
-                            Text("DRINK MENU:",
-                              style: Theme.of(context).textTheme.subtitle2,),
+                            Text(
+                              "DRINK MENU:",
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: state.result.restaurant.menus.drinks.map((MenusFood) => Container(
-                                  child: Text(
-                                    MenusFood.name,
-                                    style: Theme.of(context).textTheme.bodyText2,
-                                  ),
-                                )).toList()
-                            ),
+                                children: state.result.restaurant.menus.drinks
+                                    .map((MenusFood) => Container(
+                                          child: Text(
+                                            MenusFood.name,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                          ),
+                                        ))
+                                    .toList()),
                           ],
                         ),
                       ),
@@ -118,20 +128,20 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   ),
                 ),
               );
-            // (
-                // headerSliverBuilder: (context, isScrolled) {
-                //   final state = Provider.of<RestoDetailProvider>(context);
-                //   return SliverAppBar(
-                //     expandedHeight: 200,
-                //     flexibleSpace: FlexibleSpaceBar(
-                //       background: Hero(
-                //           tag: state.result.restaurant.id, child: Image.network(
-                //         ApiService.largeImage + state.result.restaurant.pictureId,
-                //         fit: BoxFit.cover,
-                //       )),
-                //     ),
-                //   );
-                // },
+              // (
+              // headerSliverBuilder: (context, isScrolled) {
+              //   final state = Provider.of<RestoDetailProvider>(context);
+              //   return SliverAppBar(
+              //     expandedHeight: 200,
+              //     flexibleSpace: FlexibleSpaceBar(
+              //       background: Hero(
+              //           tag: state.result.restaurant.id, child: Image.network(
+              //         ApiService.largeImage + state.result.restaurant.pictureId,
+              //         fit: BoxFit.cover,
+              //       )),
+              //     ),
+              //   );
+              // },
 
               // );
             } else if (state.state == ResultState.NoData) {
@@ -164,4 +174,3 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
     );
   }
 }
-

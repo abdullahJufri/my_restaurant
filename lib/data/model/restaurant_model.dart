@@ -18,22 +18,22 @@ class Restaurant {
   double rating;
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-    id: json["id"],
-    name: json["name"],
-    description: json["description"],
-    pictureId: json["pictureId"],
-    city: json["city"],
-    rating: json["rating"].toDouble(),
-  );
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        pictureId: json["pictureId"],
+        city: json["city"],
+        rating: json["rating"].toDouble(),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "description": description,
-    "pictureId": pictureId,
-    "city": city,
-    "rating": rating,
-  };
+        "id": id,
+        "name": name,
+        "description": description,
+        "pictureId": pictureId,
+        "city": city,
+        "rating": rating,
+      };
 }
 
 RestaurantResult restaurantResultFromJson(String str) =>
@@ -65,10 +65,9 @@ class RestaurantResult {
       );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
-    "message": message,
-    "count": count,
-    "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
-  };
+        "error": error,
+        "message": message,
+        "count": count,
+        "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
+      };
 }
-

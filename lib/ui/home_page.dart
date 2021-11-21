@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
@@ -13,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider <RestoProvider>(
+    return ChangeNotifierProvider<RestoProvider>(
       create: (_) => RestoProvider(context),
       child: Scaffold(
         appBar: AppBar(
@@ -26,16 +25,11 @@ class HomePage extends StatelessWidget {
                 fontFamily: 'Varela', fontSize: 20.0, color: Color(0xFF545D68)),
           ),
           actions: [
-            // IconButton(
-            //   icon: Icon(
-            //     Icons.notifications_none,
-            //     color: Color(0xFF545D68),
-            //   ),
-            //   onPressed: () {},
-            // ),
             IconButton(
-                icon: Icon(Icons.search,
-                  color: Color(0xFF545D68),),
+                icon: Icon(
+                  Icons.search,
+                  color: Color(0xFF545D68),
+                ),
                 onPressed: () =>
                     Navigator.pushNamed(context, SearchPage.routeName))
           ],
@@ -94,9 +88,9 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
 class RestoItem extends StatelessWidget {
   final Restaurant restaurant;
+
   const RestoItem({Key key, this.restaurant}) : super(key: key);
 
   @override
@@ -117,8 +111,7 @@ class RestoItem extends StatelessWidget {
                   child: Hero(
                     tag: restaurant.pictureId,
                     child: Image.network(
-                        ApiService.smallImage + restaurant.pictureId
-                    ),
+                        ApiService.smallImage + restaurant.pictureId),
                   )),
               Expanded(
                 flex: 2,
@@ -172,7 +165,6 @@ class RestoItem extends StatelessWidget {
   }
 }
 
-
 Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -188,8 +180,7 @@ Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
             Expanded(
                 flex: 1,
                 child: Image.network(
-                    ApiService.smallImage + restaurant.pictureId
-                )),
+                    ApiService.smallImage + restaurant.pictureId)),
             Expanded(
               flex: 2,
               child: Padding(

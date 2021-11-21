@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:my_restaurant/data/api/api_connection_service.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 enum ResultState { Loading, NoData, HasData, Error, NoConnection }
 
@@ -19,13 +20,17 @@ class RestoProvider extends ChangeNotifier {
   RestaurantResult _restoResult;
 
   String get message => _message;
+
   String get query => _query;
+
   ResultState get state => _state;
+
   RestaurantResult get result => _restoResult;
 
   RestoProvider(this.context) {
     _fetchRestoData();
   }
+
   void refresh() {
     _query = query;
     _fetchRestoData();

@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:flutter/material.dart';
 
 class DataService {
   bool connected;
   String message;
   DataConnectionStatus dataConnectionStatus;
+
   DataService({this.connected, this.message, this.dataConnectionStatus});
 }
 
