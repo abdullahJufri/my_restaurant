@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
+import 'package:my_restaurant/data/provider/db_provider.dart';
 import 'package:my_restaurant/data/provider/restaurant_provider.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
+import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/search.dart';
 import 'package:provider/provider.dart';
 // import 'package:my_restaurant/restaurant.dart';
@@ -31,7 +33,14 @@ class HomePage extends StatelessWidget {
                   color: Color(0xFF545D68),
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, SearchPage.routeName))
+                    Navigator.pushNamed(context, SearchPage.routeName)),
+            IconButton(
+                icon: Icon(
+                  Icons.bookmark,
+                  color: Color(0xFF545D68),
+                ),
+                onPressed: () =>
+                    Navigator.pushNamed(context, BookmarksPage.routeName)),
           ],
         ),
         body: Consumer<RestoProvider>(builder: (context, state, _) {
@@ -91,143 +100,175 @@ class HomePage extends StatelessWidget {
 class RestoItem extends StatelessWidget {
   final Restaurant restaurant;
 
-  const RestoItem({Key key, this.restaurant}) : super(key: key);
+  const RestoItem({Key key,@required this.restaurant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-              arguments: restaurant.id);
-        },
-        child: Card(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Hero(
-                    tag: restaurant.pictureId,
-                    child: Image.network(
-                        ApiService.smallImage + restaurant.pictureId),
-                  )),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        restaurant.name,
-                        style: Theme.of(context).textTheme.headline6,
+    return Consumer<DatabaseProvider>(
+      builder: (context, provider, child) {
+        return FutureBuilder<bool>(
+          future: provider.isBookmarked(restaurant.id),
+          builder: (context, snapshot) {
+            var isBookmarked = snapshot.data ?? false;
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, RestaurantDetailPage.routeName,
+                      arguments: restaurant.id);
+                },
+                child: Card(
+                    child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Hero(
+                          tag: restaurant.pictureId,
+                          child: Image.network(
+                              ApiService.smallImage + restaurant.pictureId),
+                        )),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              restaurant.name,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                ),
+                                Text(
+                                  restaurant.city,
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                )
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.star_rate,
+                                  color: Colors.yellow,
+                                ),
+                                Text(
+                                  restaurant.rating.toString(),
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                          ),
-                          Text(
-                            restaurant.city,
-                            style: Theme.of(context).textTheme.subtitle2,
-                          )
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.star_rate,
-                            color: Colors.yellow,
-                          ),
-                          Text(
-                            restaurant.rating.toString(),
-                            style: Theme.of(context).textTheme.subtitle2,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+                    ),
+                    Expanded(
+                      flex: 0,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            IconButton(
+                              icon: isBookmarked
+                                  ? IconButton(
+                                      icon: Icon(Icons.bookmark),
+                                      color: Theme.of(context).accentColor,
+                                      onPressed: () => provider
+                                          .removeBookmark(restaurant.id),
+                                    )
+                                  : IconButton(
+                                      icon: Icon(Icons.bookmark_border),
+                                      color: Theme.of(context).accentColor,
+                                      onPressed: () =>
+                                          provider.addBookmark(restaurant),
+                                    ),
+                            )
+                          ]),
+                    ),
+                  ],
+                )),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
 
-Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    child: InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-            arguments: restaurant);
-      },
-      child: Card(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: Image.network(
-                    ApiService.smallImage + restaurant.pictureId)),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      restaurant.name,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                        ),
-                        Text(
-                          restaurant.city,
-                          style: Theme.of(context).textTheme.subtitle2,
-                        )
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.star_rate,
-                          color: Colors.yellow,
-                        ),
-                        Text(
-                          restaurant.rating.toString(),
-                          style: Theme.of(context).textTheme.subtitle2,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    ),
-  );
-}
+// Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
+//   return Padding(
+//     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+//     child: InkWell(
+//       onTap: () {
+//         Navigator.pushNamed(context, RestaurantDetailPage.routeName,
+//             arguments: restaurant);
+//       },
+//       child: Card(
+//         child: Row(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: <Widget>[
+//             Expanded(
+//                 flex: 1,
+//                 child: Image.network(
+//                     ApiService.smallImage + restaurant.pictureId)),
+//             Expanded(
+//               flex: 2,
+//               child: Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: <Widget>[
+//                     Text(
+//                       restaurant.name,
+//                       style: Theme.of(context).textTheme.headline6,
+//                     ),
+//                     SizedBox(
+//                       height: 10,
+//                     ),
+//                     Row(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: [
+//                         Icon(
+//                           Icons.location_on,
+//                         ),
+//                         Text(
+//                           restaurant.city,
+//                           style: Theme.of(context).textTheme.subtitle2,
+//                         )
+//                       ],
+//                     ),
+//                     Row(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: [
+//                         Icon(
+//                           Icons.star_rate,
+//                           color: Colors.yellow,
+//                         ),
+//                         Text(
+//                           restaurant.rating.toString(),
+//                           style: Theme.of(context).textTheme.subtitle2,
+//                         )
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }

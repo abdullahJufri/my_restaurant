@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:my_restaurant/data/api/api_connection_service.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
-
 enum ResultState { Loading, NoData, HasData, Error, NoConnection }
 
 class RestoProvider extends ChangeNotifier {
@@ -17,33 +16,29 @@ class RestoProvider extends ChangeNotifier {
   String _message = '';
   String _query = '';
   ResultState _state;
-  RestaurantResult _restoResult;
+  RestaurantResult _restaurantResult;
 
   String get message => _message;
-
   String get query => _query;
-
   ResultState get state => _state;
-
-  RestaurantResult get result => _restoResult;
+  RestaurantResult get result => _restaurantResult;
 
   RestoProvider(this.context) {
-    _fetchRestoData();
+    _fetchRestaurantData();
   }
-
   void refresh() {
     _query = query;
-    _fetchRestoData();
+    _fetchRestaurantData();
     notifyListeners();
   }
 
   void setQuery(String query) {
     _query = query;
-    _fetchRestoData();
+    _fetchRestaurantData();
     notifyListeners();
   }
 
-  Future<dynamic> _fetchRestoData() async {
+  Future<dynamic> _fetchRestaurantData() async {
     try {
       _state = ResultState.Loading;
       notifyListeners();
@@ -53,7 +48,7 @@ class RestoProvider extends ChangeNotifier {
         notifyListeners();
         return _message = connection.message;
       }
-      final restaurant = await getRestoData();
+      final restaurant = await getRestaurantData();
       if (restaurant.restaurants.isEmpty) {
         _state = ResultState.NoData;
         notifyListeners();
@@ -61,7 +56,7 @@ class RestoProvider extends ChangeNotifier {
       } else {
         _state = ResultState.HasData;
         notifyListeners();
-        return _restoResult = restaurant;
+        return _restaurantResult = restaurant;
       }
     } catch (e) {
       _state = ResultState.Error;
@@ -70,7 +65,7 @@ class RestoProvider extends ChangeNotifier {
     }
   }
 
-  Future<RestaurantResult> getRestoData() async {
+  Future<RestaurantResult> getRestaurantData() async {
     String api;
     if (query == null || query == '') {
       api = ApiService.list;
@@ -81,8 +76,7 @@ class RestoProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));
     } else {
-      throw Exception(
-          'Ugh, seems like we\'re failed to load the restaurant data');
+      throw Exception('Sorry, we are failed to load data');
     }
   }
 }

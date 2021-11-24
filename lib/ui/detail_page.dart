@@ -54,7 +54,6 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
             if (state.state == ResultState.Loading) {
               return Center(child: CircularProgressIndicator());
             } else if (state.state == ResultState.HasData) {
-              String restaurant;
               return Container(
                 child: SingleChildScrollView(
                   child: Column(

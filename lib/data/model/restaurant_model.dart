@@ -23,7 +23,8 @@ class Restaurant {
         description: json["description"],
         pictureId: json["pictureId"],
         city: json["city"],
-        rating: json["rating"].toDouble(),
+        rating: double.parse(json["rating"].toString())
+        // rating: json["rating"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
