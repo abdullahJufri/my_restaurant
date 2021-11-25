@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:isolate';
+import 'package:http/http.dart';
 import 'package:my_restaurant/data/api/api_service.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
 import 'package:my_restaurant/main.dart';

@@ -72,7 +72,7 @@ class RestoProvider extends ChangeNotifier {
     } else {
       api = ApiService.search + query;
     }
-    final response = await http.get(api);
+    final response = await http.get(Uri.parse(api));
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));
     } else {

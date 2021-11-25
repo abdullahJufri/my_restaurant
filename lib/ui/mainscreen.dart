@@ -1,14 +1,16 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_restaurant/data/provider/scheduling_provider.dart';
 import 'package:my_restaurant/styles.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
 import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/home_page.dart';
-import 'package:my_restaurant/ui/search.dart';
+
 import 'package:my_restaurant/ui/setting_page.dart';
 import 'package:my_restaurant/utils/notification_helper.dart';
 import 'package:my_restaurant/widgets/platform_widget.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/main_screen';
@@ -21,12 +23,16 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _bottomNavIndex = 0;
 
+  final NotificationHelper _notificationHelper = NotificationHelper();
+
   final List<Widget> _listWidget = [
     HomePage(),
-    FavoritesPage() ,
-    SettingsPage()
+    const FavoritesPage() ,
+    ChangeNotifierProvider<SchedulingProvider>(
+      create: (_) => SchedulingProvider(),
+      child: SettingsPage(),
+    ),
   ];
-  final NotificationHelper _notificationHelper = NotificationHelper();
 
   void _onBottomNavTapped(int index) {
     setState(() {
@@ -58,8 +64,8 @@ class _MainScreenState extends State<MainScreen> {
           iconTheme: const IconThemeData(color: kWhiteColor),
         ),
         child: CurvedNavigationBar(
-          color: kBlueColor,
-          buttonBackgroundColor: kBlueColor,
+          color: Orange200,
+          buttonBackgroundColor: Orange200,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 400),
@@ -74,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildIos(BuildContext context) {
     return Container(
-      color: kBlueColor,
+      color: Orange200,
       child: SafeArea(
         top: false,
         child: ClipRRect(
@@ -86,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
                 iconTheme: const IconThemeData(color: kWhiteColor),
               ),
               child: CurvedNavigationBar(
-                color: kBlueColor,
+                color: Orange200,
                 buttonBackgroundColor: kGrad,
                 backgroundColor: Colors.transparent,
                 animationCurve: Curves.easeInOutCirc,
@@ -101,7 +107,6 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
-    ;
   }
 
   @override
@@ -115,10 +120,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    _notificationHelper
-        .configureSelectNotificationSubject(RestaurantDetailPage.routeName);
+    _notificationHelper.configureSelectNotificationSubject(
+        RestaurantDetailPage.routeName);
   }
-
   @override
   void dispose() {
     selectNotificationSubject.close();
