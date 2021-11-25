@@ -7,7 +7,6 @@ import 'package:my_restaurant/ui/detail_page.dart';
 import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/search.dart';
 import 'package:provider/provider.dart';
-// import 'package:my_restaurant/restaurant.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/article_list';
@@ -36,11 +35,11 @@ class HomePage extends StatelessWidget {
                     Navigator.pushNamed(context, SearchPage.routeName)),
             IconButton(
                 icon: Icon(
-                  Icons.bookmark,
+                  Icons.favorite,
                   color: Color(0xFF545D68),
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, BookmarksPage.routeName)),
+                    Navigator.pushNamed(context, FavoritesPage.routeName)),
           ],
         ),
         body: Consumer<RestoProvider>(builder: (context, state, _) {
@@ -100,16 +99,16 @@ class HomePage extends StatelessWidget {
 class RestoItem extends StatelessWidget {
   final Restaurant restaurant;
 
-  const RestoItem({Key key,@required this.restaurant}) : super(key: key);
+  const RestoItem({Key key, @required this.restaurant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DatabaseProvider>(
       builder: (context, provider, child) {
         return FutureBuilder<bool>(
-          future: provider.isBookmarked(restaurant.id),
+          future: provider.isFavorited(restaurant.id),
           builder: (context, snapshot) {
-            var isBookmarked = snapshot.data ?? false;
+            var isFavorited = snapshot.data ?? false;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: InkWell(
@@ -179,18 +178,18 @@ class RestoItem extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             IconButton(
-                              icon: isBookmarked
+                              icon: isFavorited
                                   ? IconButton(
-                                      icon: Icon(Icons.bookmark),
-                                      color: Theme.of(context).accentColor,
+                                      icon: Icon(Icons.favorite),
+                                      color: Colors.red,
                                       onPressed: () => provider
-                                          .removeBookmark(restaurant.id),
+                                          .removeFavorite(restaurant.id),
                                     )
                                   : IconButton(
-                                      icon: Icon(Icons.bookmark_border),
-                                      color: Theme.of(context).accentColor,
+                                      icon: Icon(Icons.favorite_border),
+                                      color: Colors.red,
                                       onPressed: () =>
-                                          provider.addBookmark(restaurant),
+                                          provider.addFavorite(restaurant),
                                     ),
                             )
                           ]),
@@ -205,70 +204,3 @@ class RestoItem extends StatelessWidget {
     );
   }
 }
-
-// Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
-//   return Padding(
-//     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-//     child: InkWell(
-//       onTap: () {
-//         Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-//             arguments: restaurant);
-//       },
-//       child: Card(
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: <Widget>[
-//             Expanded(
-//                 flex: 1,
-//                 child: Image.network(
-//                     ApiService.smallImage + restaurant.pictureId)),
-//             Expanded(
-//               flex: 2,
-//               child: Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   mainAxisSize: MainAxisSize.min,
-//                   children: <Widget>[
-//                     Text(
-//                       restaurant.name,
-//                       style: Theme.of(context).textTheme.headline6,
-//                     ),
-//                     SizedBox(
-//                       height: 10,
-//                     ),
-//                     Row(
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       children: [
-//                         Icon(
-//                           Icons.location_on,
-//                         ),
-//                         Text(
-//                           restaurant.city,
-//                           style: Theme.of(context).textTheme.subtitle2,
-//                         )
-//                       ],
-//                     ),
-//                     Row(
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       children: [
-//                         Icon(
-//                           Icons.star_rate,
-//                           color: Colors.yellow,
-//                         ),
-//                         Text(
-//                           restaurant.rating.toString(),
-//                           style: Theme.of(context).textTheme.subtitle2,
-//                         )
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }

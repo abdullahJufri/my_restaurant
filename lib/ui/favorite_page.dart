@@ -6,17 +6,42 @@ import 'package:my_restaurant/utils/result_state.dart';
 import 'package:my_restaurant/widgets/platform_widget.dart';
 import 'package:provider/provider.dart';
 
-class BookmarksPage extends StatelessWidget {
+class FavoritesPage extends StatelessWidget {
   static const routeName = '/favorite_page';
-  static const String bookmarksTitle = 'Bookmarks';
+  static const String FavoritesTitle = 'Favorite';
   final String restaurant;
 
-  const BookmarksPage({Key key, this.restaurant}) : super(key: key);
+  const FavoritesPage({Key key, this.restaurant}) : super(key: key);
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(bookmarksTitle),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Color(0xFF545D68),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          '$FavoritesTitle',
+          style: TextStyle(
+              fontFamily: 'Varela', fontSize: 20.0, color: Color(0xFF545D68)),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.notifications_none,
+              color: Color(0xFF545D68),
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: _buildList(),
     );
@@ -25,7 +50,7 @@ class BookmarksPage extends StatelessWidget {
   Widget _buildIos(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(bookmarksTitle),
+        middle: Text(FavoritesTitle),
       ),
       child: _buildList(),
     );
@@ -36,15 +61,14 @@ class BookmarksPage extends StatelessWidget {
       builder: (context, provider, child) {
         if (provider.state == ResultState.HasData) {
           return ListView.builder(
-            itemCount: provider.bookmarks.length,
+            itemCount: provider.favorites.length,
             itemBuilder: (context, index) {
-              return RestoItem(restaurant: provider.bookmarks[index]);
+              return RestoItem(restaurant: provider.favorites[index]);
             },
           );
         } else {
           return Center(
-            child: Text('asuu'),
-            // child: Text(provider.message),
+            child: Text(provider.message),
           );
         }
       },

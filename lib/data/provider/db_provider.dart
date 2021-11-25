@@ -8,7 +8,7 @@ class DatabaseProvider extends ChangeNotifier {
   final DatabaseHelper databaseHelper;
 
   DatabaseProvider({@required this.databaseHelper}) {
-    _getBookmarks();
+    _getFavorites();
   }
 
   ResultState _state;
@@ -17,12 +17,12 @@ class DatabaseProvider extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  List<Restaurant> _bookmarks = [];
-  List<Restaurant> get bookmarks => _bookmarks;
+  List<Restaurant> _favorites = [];
+  List<Restaurant> get favorites => _favorites;
 
-  void _getBookmarks() async {
-    _bookmarks = await databaseHelper.getBookmarks();
-    if (_bookmarks.isNotEmpty) {
+  void _getFavorites() async {
+    _favorites = await databaseHelper.getFavorits();
+    if (_favorites.isNotEmpty) {
       _state = ResultState.HasData;
     } else {
       _state = ResultState.NoData;
@@ -32,10 +32,10 @@ class DatabaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addBookmark(Restaurant restaurant) async {
+  void addFavorite(Restaurant restaurant) async {
     try {
-      await databaseHelper.insertBookmark(restaurant);
-      _getBookmarks();
+      await databaseHelper.insertFavorite(restaurant);
+      _getFavorites();
     } catch (e) {
       _state = ResultState.Error;
       _message = 'Error: $e';
@@ -43,15 +43,15 @@ class DatabaseProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> isBookmarked(String id) async {
-    final bookmarkedRestaurant = await databaseHelper.getBookmarkById(id);
-    return bookmarkedRestaurant.isNotEmpty;
+  Future<bool> isFavorited(String id) async {
+    final favoritedRestaurant = await databaseHelper.getFavoriteById(id);
+    return favoritedRestaurant.isNotEmpty;
   }
 
-  void removeBookmark(String id) async {
+  void removeFavorite(String id) async {
     try {
-      await databaseHelper.removeBookmark(id);
-      _getBookmarks();
+      await databaseHelper.removeFavorite(id);
+      _getFavorites();
     } catch (e) {
       _state = ResultState.Error;
       _message = 'Error: $e';

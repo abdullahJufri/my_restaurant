@@ -12,14 +12,14 @@ class DatabaseHelper {
 
   factory DatabaseHelper() => _instance ?? DatabaseHelper._internal();
 
-  static const String _tblBookmark = 'bookmarks';
+  static const String _tblFavorite = 'favorite';
 
   Future<Database> _initializeDb() async {
     var path = await getDatabasesPath();
     var db = openDatabase(
-      '$path/newsapp.db',
+      '$path/favo.db',
       onCreate: (db, version) async {
-        await db.execute('''CREATE TABLE $_tblBookmark (
+        await db.execute('''CREATE TABLE $_tblFavorite (
              id TEXT PRIMARY KEY,
              name TEXT,
              description TEXT,
@@ -43,23 +43,23 @@ class DatabaseHelper {
     return _database;
   }
 
-  Future<void> insertBookmark(Restaurant restaurant) async {
+  Future<void> insertFavorite(Restaurant restaurant) async {
     final db = await database;
-    await db.insert(_tblBookmark, restaurant.toJson());
+    await db.insert(_tblFavorite, restaurant.toJson());
   }
 
-  Future<List<Restaurant>> getBookmarks() async {
+  Future<List<Restaurant>> getFavorits() async {
     final db = await database;
-    List<Map<String, dynamic>> results = await db.query(_tblBookmark);
+    List<Map<String, dynamic>> results = await db.query(_tblFavorite);
 
     return results.map((res) => Restaurant.fromJson(res)).toList();
   }
 
-  Future<Map> getBookmarkById(String id) async {
+  Future<Map> getFavoriteById(String id) async {
     final db = await database;
 
     List<Map<String, dynamic>> results = await db.query(
-      _tblBookmark,
+      _tblFavorite,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -71,11 +71,11 @@ class DatabaseHelper {
     }
   }
 
-  Future<void> removeBookmark(String id) async {
+  Future<void> removeFavorite(String id) async {
     final db = await database;
 
     await db.delete(
-      _tblBookmark,
+      _tblFavorite,
       where: 'id = ?',
       whereArgs: [id],
     );
