@@ -64,8 +64,8 @@ class _MainScreenState extends State<MainScreen> {
           iconTheme: const IconThemeData(color: kWhiteColor),
         ),
         child: CurvedNavigationBar(
-          color: Orange200,
-          buttonBackgroundColor: Orange200,
+          color: orange200,
+          buttonBackgroundColor: orange200,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 400),
@@ -80,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildIos(BuildContext context) {
     return Container(
-      color: Orange200,
+      color: orange200,
       child: SafeArea(
         top: false,
         child: ClipRRect(
@@ -92,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
                 iconTheme: const IconThemeData(color: kWhiteColor),
               ),
               child: CurvedNavigationBar(
-                color: Orange200,
+                color: orange200,
                 buttonBackgroundColor: kGrad,
                 backgroundColor: Colors.transparent,
                 animationCurve: Curves.easeInOutCirc,

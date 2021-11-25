@@ -4,7 +4,6 @@ import 'package:my_restaurant/data/model/restaurant_model.dart';
 import 'package:my_restaurant/data/provider/db_provider.dart';
 import 'package:my_restaurant/data/provider/restaurant_provider.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
-import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/search.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +32,6 @@ class HomePage extends StatelessWidget {
                 ),
                 onPressed: () =>
                     Navigator.pushNamed(context, SearchPage.routeName)),
-
           ],
         ),
         body: Consumer<RestoProvider>(builder: (context, state, _) {
