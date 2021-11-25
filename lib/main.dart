@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:my_restaurant/data/db/db_helper.dart';
 import 'package:my_restaurant/data/provider/db_provider.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
@@ -6,6 +7,9 @@ import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/home_page.dart';
 import 'package:my_restaurant/ui/search.dart';
 import 'package:provider/provider.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
 
 void main() {
   runApp(MyApp());
