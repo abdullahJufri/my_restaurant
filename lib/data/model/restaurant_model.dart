@@ -1,5 +1,37 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
+class ResponseList {
+  bool error;
+  String message;
+  int count;
+  List<Restaurant> restaurants;
+  ResponseList(
+      {@required this.error,
+        @required this.message,
+        @required this.count,
+        @required this.restaurants});
+
+  factory ResponseList.fromJson(Map<String, dynamic> json) => ResponseList(
+    error: json["error"],
+    message: json["message"],
+    count: json["count"],
+    restaurants: List<Restaurant>.from(
+      (json["restaurants"] as List).map(
+            (x) => Restaurant.fromJson(x),
+      ),
+    ),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "error": error,
+    "message": message,
+    "count": count,
+    "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
+  };
+}
+
 class Restaurant {
   Restaurant({
     this.id,

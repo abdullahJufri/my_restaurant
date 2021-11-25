@@ -9,9 +9,6 @@ import 'package:my_restaurant/data/api/api_service.dart';
 
 import 'api_service_test_mocks.dart';
 
-
-
-
 @GenerateMocks([http.Client])
 void main() {
   group('getRestaurantList', () {
