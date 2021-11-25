@@ -3,7 +3,6 @@ import 'package:my_restaurant/data/db/db_helper.dart';
 import 'package:my_restaurant/data/model/restaurant_model.dart';
 import 'package:my_restaurant/utils/result_state.dart';
 
-
 class DatabaseProvider extends ChangeNotifier {
   final DatabaseHelper databaseHelper;
 
@@ -12,12 +11,15 @@ class DatabaseProvider extends ChangeNotifier {
   }
 
   ResultState _state;
+
   ResultState get state => _state;
 
   String _message = '';
+
   String get message => _message;
 
   List<Restaurant> _favorites = [];
+
   List<Restaurant> get favorites => _favorites;
 
   void _getFavorites() async {

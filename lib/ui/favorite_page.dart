@@ -24,15 +24,6 @@ class FavoritesPage extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'Varela', fontSize: 20.0, color: Color(0xFF545D68)),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Color(0xFF545D68),
-            ),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: _buildList(),
     );

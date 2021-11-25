@@ -17,12 +17,12 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestoProvider>(
       create: (_) => RestoProvider(context),
-      child:
-          SafeArea(
-            child: Scaffold(body: Consumer<RestoProvider>(builder: (context, state, _) {
-        if (state.state == ResultState.Loading) {
+      child: SafeArea(
+        child: Scaffold(
+            body: Consumer<RestoProvider>(builder: (context, state, _) {
+          if (state.state == ResultState.Loading) {
             return Center(child: CircularProgressIndicator());
-        } else if (state.state == ResultState.HasData) {
+          } else if (state.state == ResultState.HasData) {
             return Stack(
               children: [
                 ListView.builder(
@@ -38,15 +38,15 @@ class _SearchPageState extends State<SearchPage> {
                 _searchAppbar(context, state)
               ],
             );
-        } else if (state.state == ResultState.NoData) {
+          } else if (state.state == ResultState.NoData) {
             return Center(
               child: Text(state.message),
             );
-        } else if (state.state == ResultState.Error) {
+          } else if (state.state == ResultState.Error) {
             return Center(
               child: Text(state.message),
             );
-        } else if (state.state == ResultState.NoConnection) {
+          } else if (state.state == ResultState.NoConnection) {
             return Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -68,13 +68,13 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
             );
-        } else {
+          } else {
             return Center(
               child: Text(''),
             );
-        }
-      })),
-          ),
+          }
+        })),
+      ),
     );
   }
 
