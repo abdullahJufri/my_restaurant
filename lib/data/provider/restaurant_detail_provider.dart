@@ -56,7 +56,7 @@ class RestoDetailProvider extends ChangeNotifier {
   }
 
   Future<DetailRestaurantResult> getRestoDetail() async {
-    final response = await http.get(ApiService.detail + id);
+    final response = await http.get(Uri.parse(ApiService.detail + id));
     if (response.statusCode == 200) {
       return DetailRestaurantResult.fromJson(json.decode(response.body));
     } else {
