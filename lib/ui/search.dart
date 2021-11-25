@@ -18,61 +18,63 @@ class _SearchPageState extends State<SearchPage> {
     return ChangeNotifierProvider<RestoProvider>(
       create: (_) => RestoProvider(context),
       child:
-          Scaffold(body: Consumer<RestoProvider>(builder: (context, state, _) {
+          SafeArea(
+            child: Scaffold(body: Consumer<RestoProvider>(builder: (context, state, _) {
         if (state.state == ResultState.Loading) {
-          return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.HasData) {
-          return Stack(
-            children: [
-              ListView.builder(
-                itemCount: state.result.restaurants.length,
-                itemBuilder: (context, index) {
-                  return RestoItem(
-                    restaurant: state.result.restaurants[index],
-                  );
-                },
-                padding: EdgeInsets.only(top: kToolbarHeight + 24),
-                shrinkWrap: true,
-              ),
-              _searchAppbar(context, state)
-            ],
-          );
-        } else if (state.state == ResultState.NoData) {
-          return Center(
-            child: Text(state.message),
-          );
-        } else if (state.state == ResultState.Error) {
-          return Center(
-            child: Text(state.message),
-          );
-        } else if (state.state == ResultState.NoConnection) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            return Stack(
               children: [
-                Text(
-                  state.message,
-                  style: TextStyle(fontSize: 20, color: Colors.blueGrey),
+                ListView.builder(
+                  itemCount: state.result.restaurants.length,
+                  itemBuilder: (context, index) {
+                    return RestoItem(
+                      restaurant: state.result.restaurants[index],
+                    );
+                  },
+                  padding: EdgeInsets.only(top: kToolbarHeight + 24),
+                  shrinkWrap: true,
                 ),
-                SizedBox(
-                  height: 25,
-                ),
-                RaisedButton(
-                  onPressed: () => state.refresh(),
-                  color: Colors.amber,
-                  child: Text('Refresh'),
-                )
+                _searchAppbar(context, state)
               ],
-            ),
-          );
+            );
+        } else if (state.state == ResultState.NoData) {
+            return Center(
+              child: Text(state.message),
+            );
+        } else if (state.state == ResultState.Error) {
+            return Center(
+              child: Text(state.message),
+            );
+        } else if (state.state == ResultState.NoConnection) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    state.message,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  RaisedButton(
+                    onPressed: () => state.refresh(),
+                    color: Colors.amber,
+                    child: Text('Refresh'),
+                  )
+                ],
+              ),
+            );
         } else {
-          return Center(
-            child: Text(''),
-          );
+            return Center(
+              child: Text(''),
+            );
         }
       })),
+          ),
     );
   }
 
@@ -98,7 +100,7 @@ class _SearchPageState extends State<SearchPage> {
                 },
               ),
               hintText: 'Search...',
-              hintStyle: TextStyle(color: Colors.white54),
+              hintStyle: TextStyle(color: Colors.grey),
             ),
             onSubmitted: (value) => state.setQuery(value)));
   }

@@ -14,6 +14,7 @@ import 'package:my_restaurant/ui/detail_page.dart';
 import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/home_page.dart';
 import 'package:my_restaurant/ui/mainscreen.dart';
+import 'package:my_restaurant/ui/search.dart';
 import 'package:my_restaurant/ui/setting_page.dart';
 import 'package:my_restaurant/utils/background_service.dart';
 import 'package:my_restaurant/utils/notification_helper.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
             routes: {
               MainScreen.routeName: (context) => MainScreen(),
               HomePage.routeName: (context) => HomePage(),
+              SearchPage.routeName: (context) => SearchPage(),
               SettingsPage.routeName: (context) => SettingsPage(),
               FavoritesPage.routeName: (context) => FavoritesPage(),
               RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
