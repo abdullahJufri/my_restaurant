@@ -33,13 +33,7 @@ class HomePage extends StatelessWidget {
                 ),
                 onPressed: () =>
                     Navigator.pushNamed(context, SearchPage.routeName)),
-            IconButton(
-                icon: Icon(
-                  Icons.favorite,
-                  color: Color(0xFF545D68),
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, FavoritesPage.routeName)),
+
           ],
         ),
         body: Consumer<RestoProvider>(builder: (context, state, _) {

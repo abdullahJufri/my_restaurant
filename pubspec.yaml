@@ -46,6 +46,7 @@ dependencies:
   android_alarm_manager: ^2.0.0
   flutter_local_notifications: ^5.0.0
   rxdart: ^0.26.0
+  curved_navigation_bar: ^1.0.1
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,7 @@ import 'package:my_restaurant/data/provider/db_provider.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
 import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/home_page.dart';
+import 'package:my_restaurant/ui/mainscreen.dart';
 import 'package:my_restaurant/ui/search.dart';
 import 'package:provider/provider.dart';
 
@@ -33,8 +34,9 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.white,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          initialRoute: HomePage.routeName,
+          initialRoute: MainScreen.routeName,
           routes: {
+            MainScreen.routeName: (context) => MainScreen(),
             HomePage.routeName: (context) => HomePage(),
             SearchPage.routeName: (context) => SearchPage(),
             FavoritesPage.routeName: (context) => FavoritesPage(),
