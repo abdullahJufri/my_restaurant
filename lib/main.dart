@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -21,7 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,52 +45,45 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-
           ChangeNotifierProvider<RestoProvider>(
-            create: (_) => RestoProvider(context)
-          ),
+              create: (_) => RestoProvider(context)),
           ChangeNotifierProvider<SchedulingProvider>(
-              create: (_) => SchedulingProvider()
-          ),
+              create: (_) => SchedulingProvider()),
           ChangeNotifierProvider<PreferencesProvider>(
               create: (_) => PreferencesProvider(
                   preferencesHelper: PreferencesHelper(
-                      sharedPreferences: SharedPreferences.getInstance()
-                  )
-              )
-          ),
+                      sharedPreferences: SharedPreferences.getInstance()))),
           ChangeNotifierProvider(
             create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
           ),
-
         ],
         child: Consumer<PreferencesProvider>(
-        builder: (context, provider, child) {
-          return MaterialApp(
-            title: 'My Restaurant',
-            theme: ThemeData(
-              appBarTheme: AppBarTheme(
-                elevation: 0,
+          builder: (context, provider, child) {
+            return MaterialApp(
+              title: 'My Restaurant',
+              theme: ThemeData(
+                appBarTheme: AppBarTheme(
+                  elevation: 0,
+                ),
+                scaffoldBackgroundColor: Colors.white,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
-              scaffoldBackgroundColor: Colors.white,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            navigatorKey: navigatorKey,
-            initialRoute: MainScreen.routeName,
-            routes: {
-              MainScreen.routeName: (context) => MainScreen(),
-              HomePage.routeName: (context) => HomePage(),
-              SearchPage.routeName: (context) => SearchPage(),
-              SettingsPage.routeName: (context) => SettingsPage(),
-              FavoritesPage.routeName: (context) => FavoritesPage(),
-              RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
-                restaurant: ModalRoute.of(context).settings.arguments,
+              navigatorKey: navigatorKey,
+              initialRoute: MainScreen.routeName,
+              routes: {
+                MainScreen.routeName: (context) => MainScreen(),
+                HomePage.routeName: (context) => HomePage(),
+                SearchPage.routeName: (context) => SearchPage(),
+                SettingPage.routeName: (context) => SettingPage(),
+                FavoritesPage.routeName: (context) => FavoritesPage(),
+                RestaurantDetailPage.routeName: (context) =>
+                    RestaurantDetailPage(
+                      restaurant: ModalRoute.of(context).settings.arguments,
 // ModalRoute.of(context)?.settings.arguments as Restaurant,
-              ),
-            },
-          );
-        },
-
+                    ),
+              },
+            );
+          },
         ));
   }
 }

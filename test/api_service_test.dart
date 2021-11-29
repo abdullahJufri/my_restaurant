@@ -20,7 +20,7 @@ void main() {
               '{"error": false, "message": "success", "count": 20, "restaurants": []}';
 
           when(
-            client.get(Uri.parse(ApiService.baseUrl + ApiService.list)),
+            client.get(Uri.parse(ApiService.list)),
           ).thenAnswer((_) async => http.Response(response, 200));
 
           var restaurantActual = await apiService.getRestaurant(client);
@@ -32,7 +32,7 @@ void main() {
           final client = MockClient();
           final apiService = ApiService();
 
-          when(client.get(Uri.parse(ApiService.baseUrl + ApiService.list)))
+          when(client.get(Uri.parse(ApiService.list)))
               .thenAnswer((_) async => http.Response('Not Found', 404));
 
           var actual = apiService.getRestaurant(client);
@@ -44,7 +44,7 @@ void main() {
           final client = MockClient();
           final apiService = ApiService();
 
-          when(client.get(Uri.parse(ApiService.baseUrl + ApiService.list)))
+          when(client.get(Uri.parse(ApiService.list)))
               .thenAnswer((_) async =>
           throw const SocketException('No Internet Connection'));
 

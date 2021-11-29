@@ -1,12 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_restaurant/data/provider/scheduling_provider.dart';
 import 'package:my_restaurant/cummon/styles.dart';
+import 'package:my_restaurant/data/provider/scheduling_provider.dart';
 import 'package:my_restaurant/ui/detail_page.dart';
 import 'package:my_restaurant/ui/favorite_page.dart';
 import 'package:my_restaurant/ui/home_page.dart';
-
 import 'package:my_restaurant/ui/setting_page.dart';
 import 'package:my_restaurant/utils/notification_helper.dart';
 import 'package:my_restaurant/widgets/platform_widget.dart';
@@ -14,6 +13,7 @@ import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/main_screen';
+
   const MainScreen({Key key}) : super(key: key);
 
   @override
@@ -27,10 +27,11 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _listWidget = [
     HomePage(),
-    const FavoritesPage() ,
+    const FavoritesPage(),
+    // SettingPage()
     ChangeNotifierProvider<SchedulingProvider>(
       create: (_) => SchedulingProvider(),
-      child: SettingsPage(),
+      child: SettingPage(),
     ),
   ];
 
@@ -117,12 +118,13 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _notificationHelper.configureSelectNotificationSubject(
-        RestaurantDetailPage.routeName);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _notificationHelper
+  //       .configureSelectNotificationSubject(RestaurantDetailPage.routeName);
+  // }
+
   @override
   void dispose() {
     selectNotificationSubject.close();

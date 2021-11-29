@@ -11,7 +11,7 @@ enum ResultState { Loading, NoData, HasData, Error, NoConnection }
 
 class RestoProvider extends ChangeNotifier {
   final BuildContext context;
-  final apiService = ApiService();
+  final apiService = ApiService;
   final connectionService = ConnectionService();
 
   String _message = '';
